@@ -6,10 +6,16 @@ let newDate = d.getMonth() + 1 + '.' + d.getDate() + '.' + d.getFullYear();
 const addDate = document.getElementById('date');
 const btn = document.getElementById('generate');
 const content = document.getElementById('content');
-let feel = document.getElementById('feelings');
+const feel = document.getElementById('feelings');
+const zip = document.getElementById('zip');
+
 
 
 btn.addEventListener('click', () => {
-    content.innerHTML = `you feeling: ${feel.value}`;
-    addDate.innerHTML = `date is: ${newDate}`;
+    if (zip.value == "") {
+        alert("please tipe zip");
+    } else {
+        content.innerHTML = `your feeling: ${feel.value}`;
+        addDate.innerHTML = `date is: ${newDate}`;
+    }
 })
