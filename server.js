@@ -30,5 +30,12 @@ const server = app.listen(port, () => {
 app.post('/recdata', postd)
 
 function postd(req, res) {
-    projectData = req.body
+    projectData = req.body;
+}
+
+
+app.get('/senddata', getd)
+
+function getd(req, res) {
+    res.send(projectData)
 }

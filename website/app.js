@@ -20,7 +20,6 @@ btn.addEventListener('click', () => {
         addDate.innerHTML = `date is: ${ newDate }`;
 
 
-        let Url = `https://api.openweathermap.org/data/2.5/weather?zip=${zip.value}&appid=${apiKey}`;
         const postd = async(url = '', data = {}) => {
             await fetch(url, {
                 method: 'POST',
@@ -31,20 +30,32 @@ btn.addEventListener('click', () => {
                 body: JSON.stringify(data),
             });
         }
-        async function tempfunc() {
+
+        let Url = `https://api.openweathermap.org/data/2.5/weather?zip=${zip.value}&appid=${apiKey}`;
+        async function callapi() {
             const res = await fetch(Url)
             try {
                 const obj = await res.json()
                 const temper = obj.main.temp
-                postd('/recdata', { temper })
+                postd('/recdata', { temper });
             } catch (error) {
                 alert("zip code not found")
             }
         }
-        tempfunc()
 
+        async function getdata() {
+            const res = await fetch('/senddata')
+            try {
+                const data = await res.json()
+                    //span example frome https://www.toptal.com/designers/htmlarrows/symbols/degree-fahrenheit/
+                temp.innerHTML = `temperature now: ${data.temper}<span>&#8457;</span>`;
+            } catch (error) {
 
+            }
+        }
 
+        callapi()
+            .finally(getdata)
     }
 
 })
