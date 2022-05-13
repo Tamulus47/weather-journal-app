@@ -16,10 +16,6 @@ btn.addEventListener('click', () => {
     if (zip.value == "") {
         alert("please tipe zip");
     } else {
-        content.innerHTML = `your feeling: ${ feel.value }`;
-        addDate.innerHTML = `date is: ${ newDate }`;
-
-
         const postd = async(url = '', data = {}) => {
             await fetch(url, {
                 method: 'POST',
@@ -37,7 +33,7 @@ btn.addEventListener('click', () => {
             try {
                 const obj = await res.json()
                 const temper = obj.main.temp
-                postd('/recdata', { temper });
+                postd('/recdata', { temper, feel: feel.value, date: newDate });
             } catch (error) {
                 alert("zip code not found")
             }
@@ -49,6 +45,8 @@ btn.addEventListener('click', () => {
                 const data = await res.json()
                     //span example frome https://www.toptal.com/designers/htmlarrows/symbols/degree-fahrenheit/
                 temp.innerHTML = `temperature now: ${data.temper}<span>&#8457;</span>`;
+                addDate.innerHTML = `date is: ${ data.date }`
+                content.innerHTML = `your feeling: ${ data.feel }`
             } catch (error) {
 
             }
